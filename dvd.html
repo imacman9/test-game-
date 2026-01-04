@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Super Coin Crusher</title>
+<style>
+  html, body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    font-family: monospace;
+    color: white;
+  }
+
+  #start {
+    position: absolute;
+    inset: 0;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    text-align: center;
+  }
+
+  #start h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+  }
+
+  #start p {
+    opacity: 0.8;
+  }
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+</style>
+</head>
+<body>
+
+<div id="start">
+  <h1>Super Coin Crusher</h1>
+  <p>LEVEL 1</p>
+  <p>CLICK TO PLAY</p>
+</div>
+
+<video id="vid" loop playsinline>
+  <source src="https://ia800605.us.archive.org/32/items/creative-controly/screen-capture%20%28online-video-cutter.com%29%20%281%29.mp4">
+</video>
+
+<script>
+const start = document.getElementById("start");
+const vid = document.getElementById("vid");
+
+let x = window.screenX;
+let y = window.screenY;
+let dx = 12;
+let dy = 12;
+let running = false;
+
+start.onclick = async () => {
+  await vid.play();   // sound allowed
+  start.remove();
+  running = true;
+};
+
+function bounce() {
+  if (!running) return;
+
+  const sw = screen.availWidth;
+  const sh = screen.availHeight;
+  const w = window.outerWidth;
+  const h = window.outerHeight;
+
+  x += dx;
+  y += dy;
+
+  if (x <= 0 || x + w >= sw) dx *= -1;
+  if (y <= 0 || y + h >= sh) dy *= -1;
+
+  window.moveTo(x, y);
+}
+
+setInterval(bounce, 7);
+</script>
+
+</body>
+</html>
